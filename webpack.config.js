@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const cMapsDir = path.join(
   path.dirname(require.resolve('pdfjs-dist/package.json')),
@@ -25,6 +26,9 @@ const config = () => {
       historyApiFallback: true,
     },
     devtool: 'inline-source-map',
+    stats: {
+      errorDetails: true,
+    },
     module: {
       rules: [
         {
@@ -43,15 +47,12 @@ const config = () => {
     plugins: [
       new CopyWebpackPlugin({
         patterns: [
-          {
-            from: path.join(
-              path.dirname(require.resolve('pdfjs-dist/package.json')),
-              'cmaps'
-            ),
-            to: 'cmaps/',
-          },
+          { from: './sample.pdf' },
+          { from: cMapsDir, to: 'cmaps/' },
+          { from: standardFontsDir, to: 'standard_fonts/' },
         ],
       }),
+      // new HtmlWebpackPlugin({ template: 'index.html' }),
     ],
   }
 }
