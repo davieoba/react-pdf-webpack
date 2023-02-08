@@ -18,6 +18,13 @@ const config = () => {
       path: path.resolve(__dirname, 'public'),
       filename: 'main.js',
     },
+    devServer: {
+      static: path.resolve(__dirname, 'public'),
+      compress: true,
+      port: 4000,
+      historyApiFallback: true,
+    },
+    devtool: 'inline-source-map',
     module: {
       rules: [
         {
